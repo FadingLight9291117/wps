@@ -18,6 +18,9 @@ header {
   display: flex;
   align-items: center;
 }
+.section-h1 {
+  text-align: center;
+}
 .header-inner, main {
   width: 1200px;
   margin: auto;
@@ -25,6 +28,7 @@ header {
 .tag-list {
   margin-top: 50px;
   margin-bottom: 15px;
+  text-align: center;
 }
 .tag-item {
   display: inline-block;
@@ -49,6 +53,12 @@ header {
 .playlist {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  gap: 45px 15px;
+  margin-bottom: 45px;
+}
+.songlist {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 45px 15px;
   margin-bottom: 45px;
 }
