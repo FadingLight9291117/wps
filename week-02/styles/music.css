@@ -62,6 +62,12 @@ header {
   gap: 45px 15px;
   margin-bottom: 45px;
 }
+.mvlist {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 45px 15px;
+  margin-bottom: 45px;
+}
 .cover-wrap {
   display: flex;
   position: relative;
@@ -74,6 +80,10 @@ header {
 }
 .cover-img {
   width: 100%;
+  transition: all 0.75s;
+}
+.cover-img-mvlist {
+  width: 200px;
   transition: all 0.75s;
 }
 .cover-mask {

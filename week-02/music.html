@@ -31,7 +31,7 @@
       <section>
         <h1 class="section-h1">新歌首发</h1>
         <div class="tag-list">
-          <a style="position: absolute">text</a>
+          <!-- <a style="position: absolute">text</a> -->
           <a href="#" class="tag-item tag-active">最新</a>
           <a href="#" class="tag-item">内地</a>
           <a href="#" class="tag-item">港台</a>
@@ -40,6 +40,18 @@
           <a href="#" class="tag-item">日本</a>
         </div>
         <div id="songlist" class="songlist"></div>
+      </section>
+      <section>
+        <h1 class="section-h1">MV</h1>
+        <div class="tag-list">
+          <a href="#" class="tag-item tag-active">精选</a>
+          <a href="#" class="tag-item">内地</a>
+          <a href="#" class="tag-item">韩国</a>
+          <a href="#" class="tag-item">港台</a>
+          <a href="#" class="tag-item">欧美</a>
+          <a href="#" class="tag-item">日本</a>
+        </div>
+        <div id="mvlist" class="mvlist"></div>
       </section>
     </main>
     <footer></footer>
@@ -64,8 +76,10 @@
       .then((data) => {
         const playlistElem = document.getElementById("playlist");
         const songlistElem = document.getElementById("songlist");
+        const mvlistElem = document.getElementById("mvlist");
         let playlistHtml = "";
         let songlistHtml = "";
+        let mvlistHtml = "";
         data["playlist"].forEach((item) => {
           const cover = item["cover"];
           const title = item["title"];
@@ -117,8 +131,36 @@
             </div>
           `;
         });
+        data["mvlist"].forEach((item) => {
+          const title = item["title"];
+          const singer = item["singer"];
+          const listenNum = item["listen_num"];
+          const cover = item["cover"];
+          mvlistHtml += `
+          <div class="album">
+            <a href="#" class="cover-wrap">
+              <img
+                src="${cover}"
+                class="cover-img"
+              />
+              <div class="cover-mask"></div>
+              <img src="imgs/cover_play.png" class="cover-play" />
+            </a>
+            <div>
+              <a href="#" class="nowrap album-title">${title}</a>
+            </div>
+            <div>
+              <a href="#" class="nowrap album-author">${singer}</a>
+            </div>
+            <div class="nowrap album-time">播放量：${formatListenNum(
+              listenNum
+            )}万</div>
+          </div>
+          `;
+        });
         playlistElem.innerHTML = playlistHtml;
         songlistElem.innerHTML = songlistHtml;
+        mvlistElem.innerHTML = mvlistHtml;
       });
   </script>
 </html>
