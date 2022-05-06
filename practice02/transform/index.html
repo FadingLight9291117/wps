@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .album {
+        height: 228px;
+        width: 228px;
+      }
+      .cover-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        margin-bottom: 15px;
+        cursor: pointer;
+      }
+      .cover-img {
+        width: 100%;
+        transition: all 0.75s;
+      }
+      .cover-mask {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background: #000;
+        opacity: 0;
+        transition: all 0.5s;
+      }
+      .cover-play {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-left: -35px;
+        margin-top: -35px;
+        opacity: 0;
+        transform: scale(0.7);
+        transition: all 0.5s;
+      }
+      .cover-wrap:hover .cover-mask {
+        opacity: 0.2;
+      }
+      .cover-wrap:hover .cover-play {
+        opacity: 1;
+        transform: scale(1);
+      }
+      .cover-wrap:hover .cover-img {
+        transform: scale(1.07);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="album">
+      <a href="#" class="cover-wrap"></a>
+      <img
+        src="https://y.gtimg.cn/music/photo_new/T002R300x300M000003jwWjV32HJIL_1.jpg"
+        class="cover-img"
+      />
+      <div class="cover-mask"></div>
+      <img src="./images/cover_play.png" class="cover-play" />
+    </div>
+  </body>
+</html>
