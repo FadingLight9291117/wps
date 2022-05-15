@@ -101,3 +101,28 @@ article:nth-of-type(3)  /* 第3个占2格 */ {
 4. rem 方案
 
 > `rem`是相对于 html 根节点字体大小的尺寸单位
+
+### 第四次课
+
+#### script 模板
+
+html 中的定义 script 模板
+
+```html
+<script type="text/template" id="tpl">
+  <li><a href="{{site}}"} class="link">{{name}}</a></li>
+</script>
+```
+
+#### localStorage
+
+> localStorage 是 html5 网络存储对象，将数据存储在本地客户端，如果不删除将永久存储；
+
+> 只能存储字符串
+
+```js
+let xiaoming = { name: "xiaomin", age: 30 };
+localStorage.setItem("person", JSON.stringify(person));
+
+let person = JSON.parse(localStorage.getItem("person"));
+```
