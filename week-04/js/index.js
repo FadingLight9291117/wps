@@ -15,13 +15,21 @@ function createTagList() {
         const elemList = [];
         data.forEach((element) => {
             let elem = document.createElement("a");
+            elem.id = "tag" + element.id;
             elem.href = "#";
-            elem.className = "tag-item";
+            elem.className = "tag-item tag-active";
             elem.innerHTML = element.name;
             elemList.push(elem);
         });
         return elemList;
     });
+}
+function activeTag(id) {
+    const tagListElem = document.getElementById("tag-list");
+    const tagElems = tagListElem === null || tagListElem === void 0 ? void 0 : tagListElem.children;
+    if (tagElems) {
+        for (let i = 0; i < (tagElems === null || tagElems === void 0 ? void 0 : tagElems.length); i++) { }
+    }
 }
 createTagList().then((elemList) => {
     const tagList = document.getElementById("tag-list");

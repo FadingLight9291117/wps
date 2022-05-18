@@ -9,12 +9,21 @@ async function createTagList() {
   const elemList: Array<HTMLElement> = [];
   data.forEach((element: IArea) => {
     let elem = document.createElement("a");
+    elem.id = "tag" + element.id;
     elem.href = "#";
-    elem.className = "tag-item";
+    elem.className = "tag-item tag-active";
     elem.innerHTML = element.name;
     elemList.push(elem);
   });
   return elemList;
+}
+
+function activeTag(id: string) {
+  const tagListElem = document.getElementById("tag-list");
+  const tagElems = tagListElem?.children;
+  if (tagElems) {
+    for (let i = 0; i < tagElems?.length; i++) {}
+  }
 }
 
 createTagList().then((elemList: Array<HTMLElement>) => {
