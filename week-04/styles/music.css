@@ -18,13 +18,15 @@ header {
   display: flex;
   align-items: center;
 }
-/* .header-inner, main {
-  width: 1200px;
+.header-inner, main {
+  max-width: 1200px;
+  /* width: 1200px; */
   margin: auto;
-} */
-.tag-list {
+}
+.tabs {
   margin-top: 50px;
   margin-bottom: 15px;
+  padding-left: 0px;
 }
 .tag-item {
   display: inline-block;
@@ -46,12 +48,13 @@ header {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.playlist {
+.list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+  grid-template-columns: repeat(auto-fill,minmax(200px, 1fr) );
   gap: 45px 15px;
   margin-bottom: 45px;
 }
+
 .cover-wrap {
   display: flex;
   position: relative;
@@ -131,10 +134,3 @@ footer {
   background: #333;
   height: 200px;
 }
-/* @media screen and (min-width: 1024px) {
-  .playlist {
-    min-width: 0;
-    max-width: 1200px;
-    margin: auto;
-  }
-} */
