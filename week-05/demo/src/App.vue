@@ -1,37 +1,70 @@
 <template>
-  <div style="width: 300px">
-    <ContentItem :value="value"></ContentItem>
+  <NavigatorComp />
+  <BackgroundPage />
+  <div class="content">
+    <div v-for="value in values" :key="value.name">
+      <ContentItem :value="value"></ContentItem>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { defineComponent } from "vue";
+import * as request from "./request"
 import ContentItem, { IData } from "./components/ContentItem.vue";
+import NavigatorComp from "./components/Navigator.vue";
+import BackgroundPage from "./components/BackgroundPage.vue"
 
-@Options({
+export default defineComponent({
+  name: "App",
   components: {
     ContentItem,
+    NavigatorComp,
+    BackgroundPage
   },
+  data(): { values: IData[] } {
+    return {
+      values: []
+    }
+  },
+  methods: {
+    loadData: async function () {
+      this.values = await request.get("./data/task.json");
+    }
+  },
+  created: function () {
+    this.loadData();
+  }
 })
-export default class App extends Vue {
-  public value: IData = {
-    cover: "imgs/cover-01.jpg",
-    avatar: "imgs/avatar-01.jpg",
-    name: "nane",
-    badge: "badge",
-    likes: "123",
-    views: "323",
-  };
-}
 </script>
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+
+}
+
+.content {
+  display: grid;
+  flex-direction: row;
+  grid-gap: 36px;
+  gap: 36px;
+  grid-template-columns: repeat(auto-fill, minmax(336px, 1fr));
+  padding: 32px 72px 41px;
+}
+
+a:link,
+a:visited {
+  text-decoration: none;
 }
 </style>

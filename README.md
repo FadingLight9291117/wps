@@ -80,7 +80,7 @@ article:nth-of-type(3)  /* 第3个占2格 */ {
 }
 ```
 
-### 第三次课
+## 第三次课
 
 > 移动端适配
 
@@ -102,7 +102,7 @@ article:nth-of-type(3)  /* 第3个占2格 */ {
 
 > `rem`是相对于 html 根节点字体大小的尺寸单位
 
-### 第四次课
+## 第四次课 - TypeScript
 
 #### script 模板
 
@@ -113,6 +113,8 @@ html 中的定义 script 模板
   <li><a href="{{site}}"} class="link">{{name}}</a></li>
 </script>
 ```
+
+可以直接使用 Dom 操作操纵该模板，就跟操作普通 html 页面一样
 
 #### localStorage
 
@@ -126,3 +128,120 @@ localStorage.setItem("person", JSON.stringify(person));
 
 let person = JSON.parse(localStorage.getItem("person"));
 ```
+
+## 第五次课 - Vue basic
+
+> Options VS. Compositon
+>
+> Class 写法不管
+
+Options 选项式 API
+
+```js
+export default {
+  data() {
+    return {};
+  },
+  methods: {},
+  computed: {},
+  mounted() {},
+};
+```
+
+为什么叫选项式，因为`data`，`methods`，`mounted`等等都是可选的，需要就添加，不需要可以不写。
+
+Component 组合式 API
+
+```js
+import { reactive } from "vue";
+
+export default {
+  setup() {
+    const state = reactive({ count: 0 });
+
+    function increment() {
+      state.count++;
+    }
+
+    // don't forget to expose the function as well.
+    return {
+      state,
+      increment,
+    };
+  },
+};
+```
+
+**或者** `<script setup>`，这个是重点，
+
+```vue
+<script setup>
+import { reactive } from "vue";
+
+const state = reactive({ count: 0 });
+
+function increment() {
+  state.count++;
+}
+</script>
+
+<template>
+  <button @click="increment">
+    {{ state.count }}
+  </button>
+</template>
+```
+
+### Component API
+
+#### `reactive()` & `ref()` 区别
+
+[官方解释](https://vuejs.org/guide/essentials/reactivity-fundamentals.html#limitations-of-reactive)
+
+`reactive()`的两点限制：
+
+1. 只适用于对象类型(object, array, collections types)；原始类型（string, number, boolean）无法使用
+
+2. 引用丢失
+
+```js
+let state = reactive({ count: 0 });
+// the above reference ({ count: 0 }) is no longer being tracked (reactivity connection is lost!)
+state = reactive({ count: 1 });
+```
+
+这也会导致，解构赋值或者函数传递属性，会导致丢失响应式连接(reactivity connection)。
+
+## 第六次课 - Browser
+
+<img src="imgs\storage.png" alt="image-20220526143743479" style="zoom:50%;" />
+
+storage
+
+- localStorage
+- sessionStorage
+- Cookies
+
+vue 配置 api 代理
+
+> 在`vue.configjs`文件中
+>
+> 解决开发时的跨域访问问题
+
+```js
+const { defineConfig } = require("@vue/cli-service");
+module.exports = defineConfig({
+  transpileDependencies: true,
+  devServer: {
+    proxy: {
+      "/api/": {
+        target: "http://localhost:3280",
+        changeOrigin: true,
+      },
+    },
+  },
+});
+```
+
+原理
+vue 中的 proxy 就是利用了 Node 代理，通过 Node 服务器端代理转发，因为服务器端不存在跨域的问题。
