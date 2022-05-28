@@ -6,36 +6,38 @@
       <ContentItem :value="value"></ContentItem>
     </div>
   </div>
+  <FooterPage></FooterPage>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import * as request from "./request"
+import * as request from "./request";
 import ContentItem, { IData } from "./components/ContentItem.vue";
 import NavigatorComp from "./components/Navigator.vue";
-import BackgroundPage from "./components/BackgroundPage.vue"
-
+import BackgroundPage from "./components/BackgroundPage.vue";
+import FooterPage from "./components/Footer.vue";
 export default defineComponent({
   name: "App",
   components: {
     ContentItem,
     NavigatorComp,
-    BackgroundPage
+    BackgroundPage,
+    FooterPage,
   },
   data(): { values: IData[] } {
     return {
-      values: []
-    }
+      values: [],
+    };
   },
   methods: {
     loadData: async function () {
       this.values = await request.get("./data/task.json");
-    }
+    },
   },
   created: function () {
     this.loadData();
-  }
-})
+  },
+});
 </script>
 
 <style>
@@ -51,7 +53,6 @@ export default defineComponent({
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-
 }
 
 .content {
