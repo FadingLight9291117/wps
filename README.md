@@ -245,3 +245,9 @@ module.exports = defineConfig({
 
 原理
 vue 中的 proxy 就是利用了 Node 代理，通过 Node 服务器端代理转发，因为服务器端不存在跨域的问题。
+
+## 第六次作业
+
+html 中的 click 和 onclick 区别
+
+onclik 是 html 中的 v-on:click(@click) 是 vue 定义的
