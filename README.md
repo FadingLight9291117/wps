@@ -251,3 +251,43 @@ vue 中的 proxy 就是利用了 Node 代理，通过 Node 服务器端代理转
 html 中的 click 和 onclick 区别
 
 onclik 是 html 中的 v-on:click(@click) 是 vue 定义的
+
+## 第七次课
+
+[组件自定义事件](./practice07/README.md)
+
+### setup
+
+两种
+
+1. setup
+
+```js
+export default defineComponent({
+  props: {},
+  data(): {return {}},
+  emits: ['submit'],
+  setup(props, ctx) {
+    ctx.emit('submit')
+  }
+});
+```
+
+2. <script setup>
+
+```vue
+<script lang="ts" setup>
+const emit = defineEmits<{
+  (e: "submit", value: string): void;
+  (e: "update", id: string): void;
+}>();
+</script>
+```
+
+### vue-router
+
+`this.$route` 和 `this.$router` 得到区别
+
+`this.$router` 相当于一个全局路由对象， 包含很多属性和对象（比如 history 对象），任何页面都可以调用其 push()，replace()，go()等方法。
+
+`this.$route` 表示当前路由对象，每一个路由有一个 route 对象，是一个局部对象，可以获取对应的 name，path，params，query 等属性
