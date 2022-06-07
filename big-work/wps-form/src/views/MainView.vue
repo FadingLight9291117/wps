@@ -11,39 +11,47 @@
       <div class="left-content">
         <el-button plain v-for="item in tmplBtnList" :key="item.id" @click="clickQuestionBtn('tmpl', item.id)">{{
             item.name
-        }}
+          }}
         </el-button>
       </div>
       <div class="title-small">我的常用题</div>
     </div>
     <div class="main content">
-      <NewFormContent></NewFormContent>
+      <!-- <NewFormContent></NewFormContent> -->
+      <div class="main-row">
+        <el-input type="text" value="" placeholder="请输入表单标题"/>
+      </div>
+      <div class="main-row">
+        <el-input type="text" value="" placeholder="点击设置描述"/>
+      </div>
     </div>
     <div class="right content">
-      <NewFormSetting></NewFormSetting>
+      <!-- <NewFormSetting></NewFormSetting> -->
     </div>
   </div>
 </template>
 <script lang="ts" setup>
-import NewFormContent from '@/components/NewFormContent.vue';
-import NewFormSetting from '@/components/NewFormSetting.vue';
+// import NewFormContent from '@/components/NewFormContent.vue';
+// import NewFormSetting from '@/components/NewFormSetting.vue';
 // ------------------- 初始化left的按钮 ----------------------
 const addBtnList = [
-  { id: 1, name: "填空题", type: "input" },
-  { id: 2, name: "单选题", type: "singleSelect" },
-  { id: 3, name: "多选题", type: "multiSelect" },
-  { id: 4, name: "下拉选择", type: "pullSelect" },
-  { id: 5, name: "日期题", type: "date" },
-  { id: 6, name: "时间题", type: "time" },
-  { id: 7, name: "分数题", type: "score" },
+  {id: 1, name: "填空题", type: "input"},
+  {id: 2, name: "单选题", type: "singleSelect"},
+  {id: 3, name: "多选题", type: "multiSelect"},
+  {id: 4, name: "下拉选择", type: "pullSelect"},
+  {id: 5, name: "日期题", type: "date"},
+  {id: 6, name: "时间题", type: "time"},
+  {id: 7, name: "分数题", type: "score"},
 ];
 const tmplBtnList = [
-  { id: 1, name: "姓名" },
-  { id: 2, name: "年龄" },
+  {id: 1, name: "姓名"},
+  {id: 2, name: "年龄"},
 ];
+
 function clickQuestionBtn(type: string, id: number) {
   alert(`${type}, ${id}`);
 }
+
 // ----------------------------------------------------
 
 </script>
@@ -97,6 +105,10 @@ function clickQuestionBtn(type: string, id: number) {
     .el-button {
       margin-left: 0;
     }
+  }
+
+  .main-row {
+    margin-bottom: 10px;
   }
 }
 </style>

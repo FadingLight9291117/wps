@@ -1,0 +1,41 @@
+<template>
+  <div class="main">
+    <el-card>
+      <el-row>
+        <el-input v-model="problem" placeholder="请输入问题">
+          <template #prepend>1.</template>
+        </el-input>
+      </el-row>
+      <el-row>
+        <div class="answer">
+          <span>填写者回答区</span>
+        </div>
+      </el-row>
+    </el-card>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import {ref} from "vue";
+
+const problem = ref("");
+</script>
+
+<style lang="less" scoped>
+.main {
+  width: 500px;
+  text-align: left;
+
+  .el-row {
+    margin-bottom: 10px;
+  }
+
+  .answer {
+    line-height: 34px;
+    width: 100%;
+    color: #aeb5c0;
+    font-size: 12px;
+    border-bottom: 1px dashed;
+  }
+}
+</style>
