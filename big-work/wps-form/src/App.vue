@@ -1,10 +1,16 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link>  |
-    <router-link to="/input">input</router-link> |
+    <router-link to="/">Home</router-link>
+    |
+    <router-link to="/input">input</router-link>
+    |
     <router-link to="/singleSelect">singleSelect</router-link>
+    |
+    <router-link to="/multiSelect">multiSelect</router-link>
+    |
+    <router-link to="/test">test</router-link>
   </nav>
-  <router-view />
+  <router-view/>
 </template>
 
 <style lang="less">

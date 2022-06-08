@@ -8,9 +8,9 @@
       </el-row>
 
       <el-row v-for="opt in options" :key="opt.id">
-        <el-radio label="opt.id" size="small" disabled>
+        <el-checkbox label="opt.id" size="small" disabled>
           <el-input v-model="opt.content"></el-input>
-        </el-radio>
+        </el-checkbox>
 
         <a class="delete" @click="deleteItem(opt.id)">
           <el-icon>
@@ -79,10 +79,6 @@ function deleteItem(id: number) {
     &:hover {
       cursor: pointer;
     }
-  }
-
-  .el-radio {
-    margin-right: 0;
   }
 }
 

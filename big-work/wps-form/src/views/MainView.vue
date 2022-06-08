@@ -33,6 +33,9 @@
 <script lang="ts" setup>
 // import NewFormContent from '@/components/NewFormContent.vue';
 // import NewFormSetting from '@/components/NewFormSetting.vue';
+import MainViewInput from "../views/MainViewComponents/MainViewInput.vue"
+
+const type = 'MainViewInput'
 // ------------------- 初始化left的按钮 ----------------------
 const addBtnList = [
   {id: 1, name: "填空题", type: "input"},

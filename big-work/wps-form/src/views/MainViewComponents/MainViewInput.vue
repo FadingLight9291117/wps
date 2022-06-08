@@ -2,9 +2,10 @@
   <div class="main">
     <el-card>
       <el-row>
-        <el-input v-model="problem" placeholder="请输入问题">
-          <template #prepend>1.</template>
-        </el-input>
+        <el-form-item :label="mId">
+          <el-input class="problem" v-model="problem" placeholder="请输入问题">
+          </el-input>
+        </el-form-item>
       </el-row>
       <el-row>
         <div class="answer">
@@ -17,6 +18,14 @@
 
 <script lang="ts" setup>
 import {ref} from "vue";
+import {defineProps} from "vue";
+
+interface IProps {
+  id?: string
+}
+
+const props = defineProps<IProps>()
+let mId = props.id ? props.id.toString() + '.' : "0."
 
 const problem = ref("");
 </script>
