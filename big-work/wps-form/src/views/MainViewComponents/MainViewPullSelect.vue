@@ -2,7 +2,7 @@
   <main>
     <el-card>
       <el-row>
-        <el-form-item class="problem" :label="mId">
+        <el-form-item class="title" :label="mId">
           <el-input v-model="problem" placeholder="请输入问题">
           </el-input>
         </el-form-item>
@@ -63,7 +63,7 @@ function deleteItem(id: number) {
 main {
   width: 500px;
 
-  .problem {
+  .title {
     width: 100%;
   }
 

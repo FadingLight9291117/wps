@@ -2,8 +2,8 @@
   <div class="main">
     <el-card>
       <el-row>
-        <el-form-item :label="mId">
-          <el-input class="problem" v-model="problem" placeholder="请输入问题">
+        <el-form-item :label="thisId">
+          <el-input class="title" v-model="thisTitle" placeholder="请输入问题">
           </el-input>
         </el-form-item>
       </el-row>
@@ -17,22 +17,28 @@
 </template>
 
 <script lang="ts" setup>
-import {ref} from "vue";
-import {defineProps} from "vue";
+import {defineProps, computed} from "vue";
+
+import {defineEmits} from "vue";
 
 interface IProps {
-  id?: string
+  id?: number,
+  title?: string,
 }
 
+const emit = defineEmits(["update:id", "update:title"])
 const props = defineProps<IProps>()
-let mId = props.id ? props.id.toString() + '.' : "0."
+const thisId = computed(() => props.id?.toString() || "")
+const thisTitle = computed({
+  get: () => props.title || "",
+  set: val => emit("update:title", val)
+})
 
-const problem = ref("");
+
 </script>
 
 <style lang="less" scoped>
 .main {
-  width: 500px;
   text-align: left;
 
 

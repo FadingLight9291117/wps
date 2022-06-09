@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="main-container">
-      <div class="left content">
+      <div class="main-left content">
         <div class="title-small">添加题目</div>
         <div class="left-content">
           <el-button plain v-for="item in addBtnList" :key="item.id" @click="clickQuestionBtn('add', item.id)">
@@ -17,16 +17,25 @@
         </div>
         <div class="title-small">我的常用题</div>
       </div>
-      <div class="main content">
+      <div class="main-main content">
         <!-- <NewFormContent></NewFormContent> -->
         <div class="main-row">
           <input class="main-title" type="text" value="" placeholder="请输入表单标题"/>
         </div>
         <div class="main-row">
-          <el-input type="text" value="" placeholder="点击设置描述"/>
+          <input type="text" value="" placeholder="点击设置描述"/>
+        </div>
+        <div class="problems">
+          <el-row v-for="item in problems" :key="item.id">
+            <component class="problem-item"
+                       :is="type2Component[item.type]"
+                       :id="item.id"
+                       v-model:title="item.title"
+                       v-model:options="item.setting.options"/>
+          </el-row>
         </div>
       </div>
-      <div class="right content">
+      <div class="main-right content">
         <!-- <NewFormSetting></NewFormSetting> -->
         <el-row class="btn-group1">
           <el-button>预览</el-button>
@@ -40,11 +49,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-// import NewFormContent from '@/components/NewFormContent.vue';
-// import NewFormSetting from '@/components/NewFormSetting.vue';
-import MainViewInput from "../views/MainViewComponents/MainViewInput.vue"
-
-const type = 'MainViewInput'
+import {reactive, watch} from "vue";
 // ------------------- 初始化left的按钮 ----------------------
 const addBtnList = [
   {id: 1, name: "填空题", type: "input"},
@@ -66,19 +71,30 @@ function clickQuestionBtn(type: string, id: number) {
 
 // ----------------------------------------------------
 
+// ---------------------- 主页面的点击按钮添加问题 ---------------------------------
+import MainViewInput from "@/views/MainViewComponents/MainViewInput.vue"
+import MainViewSelect from "@/views/MainViewComponents/MainViewSingleSelect.vue"
+
+const type2Component = {
+  "input": MainViewInput,
+  "singleSelect": MainViewSelect,
+}
+const problems = reactive([
+  {id: 0, type: "input", title: "", setting: {options: {}}},
+  {id: 1, type: "input", title: "", setting: {options: {}}},
+  {id: 1, type: "input", title: "", setting: {options: {}}},
+])
+
+watch(problems, () => console.log(problems))
 </script>
 <style scoped lang="less">
 .page {
-  background-color: #f0f2f5;
-  height: 100%;
 }
 
 .main-container {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
   justify-content: center;
-  height: 500px;
+  //height: 80%;
 
   .content {
     //margin: 20px;
@@ -87,24 +103,27 @@ function clickQuestionBtn(type: string, id: number) {
     margin-top: 20px;
   }
 
-  .left {
+  .main-left {
+    flex: 0 0 200px;
     text-align: left;
-    width: 200px;
     margin-left: 10px;
     margin-right: 16px;
+    height: 500px;
   }
 
-  .main {
+  .main-main {
+    flex: 0 0 700px;
     margin-right: 0;
     margin-left: 0;
     padding: 50px 66px;
-    width: 700px;
+    min-height: 500px;
   }
 
-  .right {
-    width: 300px;
+  .main-right {
+    flex: 0 0 300px;
     margin-left: 16px;
     margin-right: 10px;
+    height: 500px;
 
     .btn-group1 {
       justify-content: space-between;
@@ -146,16 +165,25 @@ function clickQuestionBtn(type: string, id: number) {
   }
 
   .main-title {
+    //width: 100%;
+    //margin: 0;
+    //border: none;
+    //font-size: 20px;
+    //font-weight: 700;
+    //line-height: 20px;
+    //color: #3d4757;
+    //text-align: center;
+    //overflow: hidden;
+    //outline: none;
+  }
+}
+
+.problems {
+  .el-row {
+    margin-bottom: 20px;
+  }
+  .problem-item {
     width: 100%;
-    margin: 0;
-    border: none;
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 20px;
-    color: #3d4757;
-    text-align: center;
-    overflow: hidden;
-    outline: none;
   }
 }
 </style>

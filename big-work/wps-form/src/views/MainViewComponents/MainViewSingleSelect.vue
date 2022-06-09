@@ -2,8 +2,8 @@
   <div class="main">
     <el-card>
       <el-row>
-        <el-form-item class="problem" :label="mId">
-          <el-input class="problem" v-model="problem"></el-input>
+        <el-form-item class="title" :label="mId">
+          <el-input class="title" v-model="problem"></el-input>
         </el-form-item>
       </el-row>
 
@@ -67,7 +67,7 @@ function deleteItem(id: number) {
 .main {
   width: 500px;
 
-  .problem {
+  .title {
     width: 100%;
   }
 
