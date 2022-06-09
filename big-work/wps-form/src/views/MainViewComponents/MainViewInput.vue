@@ -35,6 +35,7 @@ const problem = ref("");
   width: 500px;
   text-align: left;
 
+
   .el-row {
     margin-bottom: 10px;
   }

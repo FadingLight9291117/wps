@@ -1,32 +1,41 @@
 <template>
-  <div class="main-container">
-    <div class="left content">
-      <div class="title-small">添加题目</div>
-      <div class="left-content">
-        <el-button plain v-for="item in addBtnList" :key="item.id" @click="clickQuestionBtn('add', item.id)">
-          {{ item.name }}
-        </el-button>
+  <div class="page">
+    <div class="main-container">
+      <div class="left content">
+        <div class="title-small">添加题目</div>
+        <div class="left-content">
+          <el-button plain v-for="item in addBtnList" :key="item.id" @click="clickQuestionBtn('add', item.id)">
+            {{ item.name }}
+          </el-button>
+        </div>
+        <div class="title-small">题目模板</div>
+        <div class="left-content">
+          <el-button plain v-for="item in tmplBtnList" :key="item.id" @click="clickQuestionBtn('tmpl', item.id)">{{
+              item.name
+            }}
+          </el-button>
+        </div>
+        <div class="title-small">我的常用题</div>
       </div>
-      <div class="title-small">题目模板</div>
-      <div class="left-content">
-        <el-button plain v-for="item in tmplBtnList" :key="item.id" @click="clickQuestionBtn('tmpl', item.id)">{{
-            item.name
-          }}
-        </el-button>
+      <div class="main content">
+        <!-- <NewFormContent></NewFormContent> -->
+        <div class="main-row">
+          <input class="main-title" type="text" value="" placeholder="请输入表单标题"/>
+        </div>
+        <div class="main-row">
+          <el-input type="text" value="" placeholder="点击设置描述"/>
+        </div>
       </div>
-      <div class="title-small">我的常用题</div>
-    </div>
-    <div class="main content">
-      <!-- <NewFormContent></NewFormContent> -->
-      <div class="main-row">
-        <el-input type="text" value="" placeholder="请输入表单标题"/>
+      <div class="right content">
+        <!-- <NewFormSetting></NewFormSetting> -->
+        <el-row class="btn-group1">
+          <el-button>预览</el-button>
+          <el-button>保存草稿</el-button>
+        </el-row>
+        <el-row>
+          <el-button class="btn-group2" type="primary">完成创建</el-button>
+        </el-row>
       </div>
-      <div class="main-row">
-        <el-input type="text" value="" placeholder="点击设置描述"/>
-      </div>
-    </div>
-    <div class="right content">
-      <!-- <NewFormSetting></NewFormSetting> -->
     </div>
   </div>
 </template>
@@ -59,34 +68,56 @@ function clickQuestionBtn(type: string, id: number) {
 
 </script>
 <style scoped lang="less">
+.page {
+  background-color: #f0f2f5;
+  height: 100%;
+}
+
 .main-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
-  background-color: #f0f2f5;
+  justify-content: center;
   height: 500px;
 
   .content {
-    margin: 20px;
+    //margin: 20px;
     padding: 20px 15px;
     background-color: white;
+    margin-top: 20px;
   }
 
   .left {
-    flex: 1;
     text-align: left;
+    width: 200px;
+    margin-left: 10px;
+    margin-right: 16px;
   }
 
   .main {
-    flex: 3;
     margin-right: 0;
     margin-left: 0;
     padding: 50px 66px;
+    width: 700px;
   }
 
   .right {
-    flex: 1.5;
+    width: 300px;
+    margin-left: 16px;
+    margin-right: 10px;
+
+    .btn-group1 {
+      justify-content: space-between;
+      margin-bottom: 20px;
+
+      .el-button {
+        width: 45%;
+      }
+    }
+
+    .btn-group2 {
+      width: 100%;
+    }
   }
 
   .title-small {
@@ -112,6 +143,19 @@ function clickQuestionBtn(type: string, id: number) {
 
   .main-row {
     margin-bottom: 10px;
+  }
+
+  .main-title {
+    width: 100%;
+    margin: 0;
+    border: none;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 20px;
+    color: #3d4757;
+    text-align: center;
+    overflow: hidden;
+    outline: none;
   }
 }
 </style>

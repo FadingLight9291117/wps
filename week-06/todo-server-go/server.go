@@ -1,21 +1,26 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 )
 
-
-
 type HandleFunc func(w http.ResponseWriter, r *http.Request)
 
-var apiMap = &map[string]HandleFunc{
-	"/api/list":   nil,
-	"/api/create": nil,
-	"/api/remove": nil,
+routeMap := &map[string]HandleFunc{
+	"/api/list":   listTodo,
+	"/api/create": createToDo,
+	"/api/remove": removeToDo,
 }
 
-func listTodo() {
+func listTodo(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func createToDo(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func removeToDo(w http.ResponseWriter, r *http.Request) {
 
 }
 
