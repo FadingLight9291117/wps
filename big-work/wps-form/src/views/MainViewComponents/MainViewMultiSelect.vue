@@ -3,16 +3,16 @@
     <el-card>
       <el-row>
         <el-form-item class="title" :label="mId">
-          <el-input class="title" v-model="problem"></el-input>
+          <el-input class="title" v-model="mData.title"></el-input>
         </el-form-item>
       </el-row>
 
-      <el-row v-for="opt in options" :key="opt.id">
-        <el-checkbox label="opt.id" size="small" disabled>
-          <el-input v-model="opt.content"></el-input>
+      <el-row v-for="(option, idx) in mData.options" :key="idx">
+        <el-checkbox :label="idx+1" size="small">
+          <el-input v-model="mData.options[idx]"></el-input>
         </el-checkbox>
 
-        <a class="delete" @click="deleteItem(opt.id)">
+        <a class="delete" @click="deleteItem(idx)">
           <el-icon>
             <Close/>
           </el-icon>
@@ -22,44 +22,54 @@
       <el-row>
         <el-button type="primary" @click="addItem">+选项</el-button>
       </el-row>
+      <el-row>
+        <el-button type="danger" @click="deleteProblem">delete</el-button>
+      </el-row>
     </el-card>
   </div>
 </template>
 
 <script lang="ts" setup>
 import {Close} from "@element-plus/icons";
-import {ref, reactive} from "vue";
+import {reactive} from "vue";
 import {defineProps} from "vue";
+import {IFormProblemData} from "@/types";
+import {useStore} from "vuex";
+
+const store = useStore()
 
 interface IProps {
-  id?: string
+  id: number,
+  data: IFormProblemData,
 }
 
 const props = defineProps<IProps>()
-let mId = props.id ? props.id.toString() + '.' : "0."
-let problem = ref("")
 
-const options = reactive([
-  {id: 0, content: ""}, {id: 1, content: ""}
-])
+const mData = reactive<IFormProblemData>(props.data)
+const mId = props.id.toString()
+
+
+if (!mData.options) {
+  addItem()
+}
 
 function addItem() {
-  const id = options[options.length - 1].id + 1
-  const newItem = {
-    id: id,
-    content: "",
+  if (!mData.options) {
+    mData.options = []
   }
-  options.push(newItem)
+  mData.options.push("")
+  store.commit("updateProblem", mData)
 }
 
-function deleteItem(id: number) {
-  if (options.length === 1) {
-    return
+function deleteItem(idx: number) {
+  if (mData.options && mData.options.length > 1) {
+    mData.options.splice(idx, 1)
   }
-  const idx = options.findIndex(item => item.id = id)
-  options.splice(idx, 1)
 }
 
+function deleteProblem() {
+  store.commit("deleteProblem", mData)
+}
 
 </script>
 <style scoped lang="less">
@@ -79,6 +89,10 @@ function deleteItem(id: number) {
     &:hover {
       cursor: pointer;
     }
+  }
+
+  .el-radio {
+    margin-right: 0;
   }
 }
 

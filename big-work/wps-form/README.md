@@ -4,37 +4,47 @@
 
 ### 2022.6.7
 
-1. `<script setup>` 模式下 componet标签中的`:is`值为一个组件对象，可能因为`<script setup>`模式下，组件没有手动注册，`<component>`无法显示
+1. `<script setup>` 模式下 componet 标签中的`:is`值需要设置为一个组件对象。当是字符串的时候无法显示组件，可能因为`<script setup>`模式下，组件没有手动注册，`<component>`无法显示
 
-```vue
-
+```html
 <componet :is="type"></componet>
-
 ```
 
-2. js, ts可以在闭包或函数中修改外部变量的值，python在函数中不行
+2. js, ts 可以在闭包或函数中修改外部变量的值，python 在函数中不行
 
 ```js
-let a = 0
+let a = 0;
 
 function foo() {
-    a++
+  a++;
 }
 
 // a = 1
-
 ```
 
 ### 2022.6.9
 
-组件与vuex双向绑定时，一般使用`computed`
+组件与 vuex 双向绑定时，一般使用`computed`，保证响应式的同时，又防止直接修改 vuex 的 state
 
 ```js
-
+const title = computed({
+  get: () => store.getters.getNewForm.title,
+  set: (val) => store.commit("setTitle", { title: val }),
+});
 ```
+
+### 2022.6.10
+
+在 mainView 的 button 子组件中,vuex 居然自动双向绑定
+
+vuex 的 state 的子对象可以被直接修改?
+
+问题在于 vuex 的 state 是可以被直接修改的，但是不建议。因为 vuex 能够记录每一次 state 的变化记录，保存状态快照，实现时间漫游／回滚之类的操作。
 
 ## 记录
 
-| date     | content                                       |
-|:---------|:----------------------------------------------|
-| 2022.6.8 | finish singleSelect component and multiSelect |
+| date      | content                                       |
+| :-------- | :-------------------------------------------- |
+| 2022.6.8  | finish singleSelect component and multiSelect |
+| 2022.6.9  | finsh all small component                     |
+| 2022.6.10 | 完成新建表单页面的主要功能                    |

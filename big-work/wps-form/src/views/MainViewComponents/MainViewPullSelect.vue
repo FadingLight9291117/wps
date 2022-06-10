@@ -3,14 +3,14 @@
     <el-card>
       <el-row>
         <el-form-item class="title" :label="mId">
-          <el-input v-model="problem" placeholder="请输入问题">
+          <el-input v-model="mData.title" placeholder="请输入问题">
           </el-input>
         </el-form-item>
       </el-row>
-      <el-row class="option" v-for="opt in options" :key="opt.id">
-        {{options.findIndex(item => item === opt)}}.
-        <el-input></el-input>
-        <a class="delete" @click="deleteItem(opt.id)">
+      <el-row class="option" v-for="(opt, idx) in mData.options" :key="idx">
+        <span>{{ idx + 1 }}.</span>
+        <el-input v-model="mData.options[idx]"></el-input>
+        <a class="delete" @click="deleteItem(idx)">
           <el-icon>
             <Close/>
           </el-icon>
@@ -19,42 +19,52 @@
       <el-row>
         <el-button type="primary" @click="addItem">+选项</el-button>
       </el-row>
+      <el-row>
+        <el-button type="danger" @click="deleteProblem">delete</el-button>
+      </el-row>
     </el-card>
   </main>
 </template>
 
 <script lang="ts" setup>
-import {defineProps, reactive, ref} from 'vue'
 import {Close} from "@element-plus/icons";
+import {reactive} from "vue";
+import {defineProps} from "vue";
+import {IFormProblemData} from "@/types";
+import {useStore} from "vuex";
+
+const store = useStore()
 
 interface IProps {
-  id?: string
+  id: number,
+  data: IFormProblemData,
 }
 
 const props = defineProps<IProps>()
-let mId = props.id ? props.id.toString() + '.' : "0."
 
-const problem = ref<string>()
+const mData = reactive<IFormProblemData>(props.data)
+const mId = props.id.toString()
 
-const options = reactive([
-  {id: 0, content: ""}, {id: 1, content: ""}
-])
-
-function addItem() {
-  const id = options[options.length - 1].id + 1
-  const newItem = {
-    id: id,
-    content: "",
-  }
-  options.push(newItem)
+if (!mData.options) {
+  addItem()
 }
 
-function deleteItem(id: number) {
-  if (options.length === 1) {
-    return
+function addItem() {
+  if (!mData.options) {
+    mData.options = []
   }
-  const idx = options.findIndex(item => item.id = id)
-  options.splice(idx, 1)
+  mData.options.push("")
+  store.commit("updateProblem", mData)
+}
+
+function deleteItem(idx: number) {
+  if (mData.options && mData.options.length > 1) {
+    mData.options.splice(idx, 1)
+  }
+}
+
+function deleteProblem() {
+  store.commit("deleteProblem", mData)
 }
 
 </script>

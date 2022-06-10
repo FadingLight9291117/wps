@@ -1,9 +1,16 @@
 import {createStore} from "vuex";
-import {IFormItemData} from "@/types";
+import {IFormProblemData} from "@/types";
+
 
 export default createStore({
     state: {
-        newForm: [{id: '0123', type: "input", title: ""}],
+        newForm: {
+            title: "",
+            subTitle: "",
+            problems: [
+                {id: Date.now().toString(), type: "input", title: ""},
+            ]
+        },
         addBtnList: [
             {id: 1, name: "填空题", type: "input"},
             {id: 2, name: "单选题", type: "singleSelect"},
@@ -25,10 +32,18 @@ export default createStore({
     },
     mutations: {
         setNewForm: (state, form) => state.newForm = form,
-        addProblem: (state, problem) => state.newForm.push(problem),
+        setTitle: (state, title: { title?: string, subTitle?: string }) => {
+            if (title.title) state.newForm.title = title.title
+            if (title.subTitle) state.newForm.subTitle = title.subTitle
+        },
+        addProblem: (state, problem) => state.newForm.problems.push(problem),
         updateProblem: (state, problem) => {
-            const problemIdx = state.newForm.findIndex((item: IFormItemData) => item.id === problem.id)
-            state.newForm[problemIdx] = problem
+            const problemIdx = state.newForm.problems.findIndex((item: IFormProblemData) => item.id === problem.id)
+            state.newForm.problems[problemIdx] = problem
+        },
+        deleteProblem: (state, problem) => {
+            const problemIdx = state.newForm.problems.findIndex((item: IFormProblemData) => item.id === problem.id)
+            state.newForm.problems.splice(problemIdx, 1)
         }
     },
     actions: {},

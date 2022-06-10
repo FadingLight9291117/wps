@@ -10,7 +10,7 @@
         </div>
         <div class="title-small">题目模板</div>
         <div class="left-content">
-          <el-button plain v-for="item in tmplBtnList" :key="item.id" @click="clickQuestionBtn('tmpl', item.id)">
+          <el-button plain v-for="item in tmplBtnList" :key="item.id">
             {{ item.name }}
           </el-button>
         </div>
@@ -19,14 +19,14 @@
       <div class="main-main content">
         <!-- <NewFormContent></NewFormContent> -->
         <div class="main-row">
-          <input class="main-title" type="text" value="" placeholder="请输入表单标题"/>
+          <el-input class="main-title" type="text" v-model="title" placeholder="请输入表单标题" />
         </div>
         <div class="main-row">
-          <input type="text" value="" placeholder="点击设置描述"/>
+          <el-input type="text" v-model="subTitle" placeholder="点击设置描述" />
         </div>
         <div class="problems">
-          <el-row v-for="item in problems" :key="item.id">
-            <component class="problem-item" :is="type2Component[item.type]" v-model:id="item.id"></component>
+          <el-row v-for="(item, idx) in problems" :key="idx">
+            <component class="problem-item" :is="type2Component[item.type]" :data="item" :id="idx"></component>
           </el-row>
         </div>
       </div>
@@ -37,55 +37,66 @@
           <el-button>保存草稿</el-button>
         </el-row>
         <el-row>
-          <el-button class="btn-group2" type="primary">完成创建</el-button>
+          <el-button class="btn-group2" type="primary" @click="submit">完成创建</el-button>
         </el-row>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
-import {computed, watch} from "vue";
-import {useStore} from "vuex";
+import { computed } from "vue";
+import { useStore } from "vuex";
 import MainViewInput from "@/views/MainViewComponents/MainViewInput.vue"
-import MainViewSelect from "@/views/MainViewComponents/MainViewSingleSelect.vue"
-import {IFormItemData} from "@/types";
+import MainViewSingleSelect from "@/views/MainViewComponents/MainViewSingleSelect.vue"
+import MainViewMultiSelect from "@/views/MainViewComponents/MainViewMultiSelect.vue"
+import MainViewPullSelect from "@/views/MainViewComponents/MainViewPullSelect.vue"
+import MainViewTime from "@/views/MainViewComponents/MainViewTime.vue"
+import MainViewDate from "@/views/MainViewComponents/MainViewDate.vue"
+import MainViewScore from "@/views/MainViewComponents/MainViewScore.vue"
+import { IFormProblemData } from "@/types";
+import { submitNewForm } from "@/api";
 
 const store = useStore()
-// ------------------- 初始化left的按钮 ----------------------
+// ---------------------------- 初始化left的按钮 ---------------------------------
 const addBtnList = computed(() => store.getters.getAddBtnList)
 const tmplBtnList = computed(() => store.getters.getTmplBtnList)
-
-function clickQuestionBtn(type: string, id: number) {
-  alert(`${type}, ${id}`);
-}
-
-// ----------------------------------------------------
-
-// ---------------------- 主页面的点击按钮添加问题 ---------------------------------
+// ------------------------------ 标题设置 -----------------------------------------
+const title = computed({
+  get: () => store.getters.getNewForm.title,
+  set: val => store.commit("setTitle", { title: val })
+})
+const subTitle = computed({
+  get: () => store.getters.getNewForm.subTitle,
+  set: val => store.commit("setTitle", { subTitle: val })
+})
+// -------------------------- 主页面的点击按钮添加问题 ------------------------------
 const type2Component = {
   "input": MainViewInput,
-  "singleSelect": MainViewSelect,
+  "singleSelect": MainViewSingleSelect,
+  "multiSelect": MainViewMultiSelect,
+  "pullSelect": MainViewPullSelect,
+  "time": MainViewTime,
+  "date": MainViewDate,
+  "score": MainViewScore,
 }
+// const type2Component = new Map(Object.entries(_type2Component))
 
-
+const problems = store.getters.getNewForm.problems as Array<IFormProblemData>
 function addProblem(type: string) {
-  const problem: IFormItemData = {
+  const problem: IFormProblemData = {
     id: Date.now().toString(),
     type: type,
     title: "",
-    setting: {
-      options: []
-    }
   }
   store.commit("addProblem", problem)
 }
-
-const problems = computed(() => store.getters.getNewForm)
-
+// ----------------------------- right 提交新form ------------------------------
+function submit() {
+  submitNewForm(store.getters.getNewForm)
+}
 </script>
 <style scoped lang="less">
-.page {
-}
+.page {}
 
 .main-container {
   display: flex;

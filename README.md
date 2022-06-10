@@ -222,7 +222,7 @@ storage
 - sessionStorage
 - Cookies
 
-vue 配置 api 代理
+###  vue 配置 api 代理
 
 > 在`vue.configjs`文件中
 >

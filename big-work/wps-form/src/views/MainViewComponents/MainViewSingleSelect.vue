@@ -2,19 +2,19 @@
   <div class="main">
     <el-card>
       <el-row>
-        <el-form-item class="title" :label="itemId">
-          <el-input class="title" v-model="data.title"></el-input>
+        <el-form-item class="title" :label="mId">
+          <el-input class="title" v-model="mData.title"></el-input>
         </el-form-item>
       </el-row>
 
-      <el-row v-for="opt in data.setting?.options" :key="opt.id">
-        <el-radio label="opt.id" size="small" disabled>
-          <el-input v-model="opt.content"></el-input>
+      <el-row v-for="(option, idx) in mData.options" :key="idx">
+        <el-radio :label="idx + 1" size="small">
+          <el-input v-model="mData.options[idx]"></el-input>
         </el-radio>
 
-        <a class="delete" @click="deleteItem(opt.id)">
+        <a class="delete" @click="deleteItem(idx)">
           <el-icon>
-            <Close/>
+            <Close />
           </el-icon>
         </a>
 
@@ -22,43 +22,58 @@
       <el-row>
         <el-button type="primary" @click="addItem">+选项</el-button>
       </el-row>
+      <el-row>
+        <el-button type="danger" @click="deleteProblem">delete</el-button>
+      </el-row>
     </el-card>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {Close} from "@element-plus/icons";
-import {ref, reactive, computed, watch} from "vue";
-import {defineProps} from "vue";
-import {IFormItemData} from "@/types";
-import {useStore} from "vuex";
+import { Close } from "@element-plus/icons";
+import { reactive } from "vue";
+import { defineProps } from "vue";
+import { IFormProblemData } from "@/types";
+import { useStore } from "vuex";
 
 const store = useStore()
 
 interface IProps {
-  id?: string
+  id: number,
+  data: IFormProblemData,
 }
 
 const props = defineProps<IProps>()
 
-const itemId = computed(() => store.getters.getNewForm.findIndex((item: IFormItemData) => item.id === props.id).toString())
+const mData = reactive<IFormProblemData>(props.data)
+const mId = props.id.toString()
 
-const data = store.getters.getNewForm.find((item: IFormItemData) => item.id === props.id)
-
-
-function addItem() {
-  data.value.setting?.options.push({title: "", status: 1})
+// 新问题默认一个空选项
+if (!mData.options) {
+  addItem()
 }
 
-function deleteItem(id: string) {
-  const idx = data.value.setting.options.indexOf((item: { id: string, status: number }) => item.id === id)
-  data.value.setting?.options.splice(idx, 1)
+function addItem() {
+  if (!mData.options) {
+    mData.options = []
+  }
+  mData.options.push("")
+  store.commit("updateProblem", mData)
+}
+
+function deleteItem(idx: number) {
+  if (mData.options && mData.options.length > 1) {
+    mData.options.splice(idx, 1)
+  }
+}
+
+function deleteProblem() {
+  store.commit("deleteProblem", mData)
 }
 
 
 </script>
 <style scoped lang="less">
-
 .main {
   width: 500px;
 
@@ -80,5 +95,4 @@ function deleteItem(id: string) {
     margin-right: 0;
   }
 }
-
 </style>
