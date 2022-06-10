@@ -2,12 +2,12 @@
   <div class="main">
     <el-card>
       <el-row>
-        <el-form-item class="title" :label="mId">
-          <el-input class="title" v-model="problem"></el-input>
+        <el-form-item class="title" :label="itemId">
+          <el-input class="title" v-model="data.title"></el-input>
         </el-form-item>
       </el-row>
 
-      <el-row v-for="opt in options" :key="opt.id">
+      <el-row v-for="opt in data.setting?.options" :key="opt.id">
         <el-radio label="opt.id" size="small" disabled>
           <el-input v-model="opt.content"></el-input>
         </el-radio>
@@ -28,36 +28,31 @@
 
 <script lang="ts" setup>
 import {Close} from "@element-plus/icons";
-import {ref, reactive} from "vue";
+import {ref, reactive, computed, watch} from "vue";
 import {defineProps} from "vue";
+import {IFormItemData} from "@/types";
+import {useStore} from "vuex";
+
+const store = useStore()
 
 interface IProps {
   id?: string
 }
 
 const props = defineProps<IProps>()
-let mId = props.id ? props.id.toString() + '.' : "0."
-let problem = ref("")
 
-const options = reactive([
-  {id: 0, content: ""}, {id: 1, content: ""}
-])
+const itemId = computed(() => store.getters.getNewForm.findIndex((item: IFormItemData) => item.id === props.id).toString())
+
+const data = store.getters.getNewForm.find((item: IFormItemData) => item.id === props.id)
+
 
 function addItem() {
-  const id = options[options.length - 1].id + 1
-  const newItem = {
-    id: id,
-    content: "",
-  }
-  options.push(newItem)
+  data.value.setting?.options.push({title: "", status: 1})
 }
 
-function deleteItem(id: number) {
-  if (options.length === 1) {
-    return
-  }
-  const idx = options.findIndex(item => item.id = id)
-  options.splice(idx, 1)
+function deleteItem(id: string) {
+  const idx = data.value.setting.options.indexOf((item: { id: string, status: number }) => item.id === id)
+  data.value.setting?.options.splice(idx, 1)
 }
 
 

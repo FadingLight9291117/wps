@@ -273,7 +273,7 @@ export default defineComponent({
 });
 ```
 
-2. <script setup>
+2. `<script setup>`
 
 ```vue
 <script lang="ts" setup>
@@ -291,3 +291,50 @@ const emit = defineEmits<{
 `this.$router` 相当于一个全局路由对象， 包含很多属性和对象（比如 history 对象），任何页面都可以调用其 push()，replace()，go()等方法。
 
 `this.$route` 表示当前路由对象，每一个路由有一个 route 对象，是一个局部对象，可以获取对应的 name，path，params，query 等属性
+
+## 第八次课
+
+### Vuex
+
+[官方文档](https://vuex.vuejs.org/)
+
+![vuex](./imgs/vuex.png)
+
+[示例](./practice08\src\store\index.ts)
+
+```ts
+import { createStore } frmo "vuex";
+export default createStore({
+  state: {},      // => 存储状态
+  getters: {},    // => 获取状态
+  mutations: {},  // => 同步修改状态
+  actions: {},    // => 异步修改状态
+  modules: {},    // => 分割状态到模块中
+})
+```
+
+1. 通过 getters 获取状态
+
+```ts
+
+```
+
+### css modules
+
+
+
+### tips
+
+tips: 使用 computed 调用 vuex 的 getters，因为 computed 会返回一个 computed ref，
+computed 的特点:1. cache；2. 仅响应式依赖项发生改变的时候才会更新。
+
+这个将不会更新
+
+```js
+const now = computed(() => Date.now());
+```
+
+```ts
+const store = useStore();
+const name = computed(() => store.getters.getName);
+```

@@ -2,8 +2,8 @@
   <div class="main">
     <el-card>
       <el-row>
-        <el-form-item :label="thisId">
-          <el-input class="title" v-model="thisTitle" placeholder="请输入问题">
+        <el-form-item :label="itemId">
+          <el-input class="title" v-model="title" placeholder="请输入问题">
           </el-input>
         </el-form-item>
       </el-row>
@@ -18,20 +18,33 @@
 
 <script lang="ts" setup>
 import {defineProps, computed} from "vue";
+import {useStore} from "vuex";
+import {IFormItemData} from "@/types";
 
-import {defineEmits} from "vue";
+const store = useStore()
 
 interface IProps {
-  id?: number,
-  title?: string,
+  id?: string,
 }
 
-const emit = defineEmits(["update:id", "update:title"])
 const props = defineProps<IProps>()
-const thisId = computed(() => props.id?.toString() || "")
-const thisTitle = computed({
-  get: () => props.title || "",
-  set: val => emit("update:title", val)
+
+const itemId = computed(() => store.getters.getNewForm.findIndex((item: IFormItemData) => item.id === props.id).toString())
+
+const data = computed<IFormItemData>({
+  get: () => store.getters.getNewForm.find((item: IFormItemData) => item.id === props.id),
+  set: val => {
+    store.commit("updateProblem", val)
+  }
+})
+
+const title = computed({
+  get: () => data.value.title,
+  set: val => {
+    const problem = data.value
+    problem.title = val
+    data.value = problem
+  }
 })
 
 

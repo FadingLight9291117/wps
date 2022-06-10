@@ -25,6 +25,14 @@ function foo() {
 
 ```
 
+### 2022.6.9
+
+组件与vuex双向绑定时，一般使用`computed`
+
+```js
+
+```
+
 ## 记录
 
 | date     | content                                       |

@@ -4,15 +4,14 @@
       <div class="main-left content">
         <div class="title-small">添加题目</div>
         <div class="left-content">
-          <el-button plain v-for="item in addBtnList" :key="item.id" @click="clickQuestionBtn('add', item.id)">
+          <el-button plain v-for="item in addBtnList" :key="item.id" @click="addProblem(item.type)">
             {{ item.name }}
           </el-button>
         </div>
         <div class="title-small">题目模板</div>
         <div class="left-content">
-          <el-button plain v-for="item in tmplBtnList" :key="item.id" @click="clickQuestionBtn('tmpl', item.id)">{{
-              item.name
-            }}
+          <el-button plain v-for="item in tmplBtnList" :key="item.id" @click="clickQuestionBtn('tmpl', item.id)">
+            {{ item.name }}
           </el-button>
         </div>
         <div class="title-small">我的常用题</div>
@@ -27,11 +26,7 @@
         </div>
         <div class="problems">
           <el-row v-for="item in problems" :key="item.id">
-            <component class="problem-item"
-                       :is="type2Component[item.type]"
-                       :id="item.id"
-                       v-model:title="item.title"
-                       v-model:options="item.setting.options"/>
+            <component class="problem-item" :is="type2Component[item.type]" v-model:id="item.id"></component>
           </el-row>
         </div>
       </div>
@@ -49,21 +44,16 @@
   </div>
 </template>
 <script lang="ts" setup>
-import {reactive, watch} from "vue";
+import {computed, watch} from "vue";
+import {useStore} from "vuex";
+import MainViewInput from "@/views/MainViewComponents/MainViewInput.vue"
+import MainViewSelect from "@/views/MainViewComponents/MainViewSingleSelect.vue"
+import {IFormItemData} from "@/types";
+
+const store = useStore()
 // ------------------- 初始化left的按钮 ----------------------
-const addBtnList = [
-  {id: 1, name: "填空题", type: "input"},
-  {id: 2, name: "单选题", type: "singleSelect"},
-  {id: 3, name: "多选题", type: "multiSelect"},
-  {id: 4, name: "下拉选择", type: "pullSelect"},
-  {id: 5, name: "日期题", type: "date"},
-  {id: 6, name: "时间题", type: "time"},
-  {id: 7, name: "分数题", type: "score"},
-];
-const tmplBtnList = [
-  {id: 1, name: "姓名"},
-  {id: 2, name: "年龄"},
-];
+const addBtnList = computed(() => store.getters.getAddBtnList)
+const tmplBtnList = computed(() => store.getters.getTmplBtnList)
 
 function clickQuestionBtn(type: string, id: number) {
   alert(`${type}, ${id}`);
@@ -72,20 +62,26 @@ function clickQuestionBtn(type: string, id: number) {
 // ----------------------------------------------------
 
 // ---------------------- 主页面的点击按钮添加问题 ---------------------------------
-import MainViewInput from "@/views/MainViewComponents/MainViewInput.vue"
-import MainViewSelect from "@/views/MainViewComponents/MainViewSingleSelect.vue"
-
 const type2Component = {
   "input": MainViewInput,
   "singleSelect": MainViewSelect,
 }
-const problems = reactive([
-  {id: 0, type: "input", title: "", setting: {options: {}}},
-  {id: 1, type: "input", title: "", setting: {options: {}}},
-  {id: 1, type: "input", title: "", setting: {options: {}}},
-])
 
-watch(problems, () => console.log(problems))
+
+function addProblem(type: string) {
+  const problem: IFormItemData = {
+    id: Date.now().toString(),
+    type: type,
+    title: "",
+    setting: {
+      options: []
+    }
+  }
+  store.commit("addProblem", problem)
+}
+
+const problems = computed(() => store.getters.getNewForm)
+
 </script>
 <style scoped lang="less">
 .page {
@@ -104,7 +100,7 @@ watch(problems, () => console.log(problems))
   }
 
   .main-left {
-    flex: 0 0 200px;
+    flex: 0 0 100px;
     text-align: left;
     margin-left: 10px;
     margin-right: 16px;
@@ -112,15 +108,15 @@ watch(problems, () => console.log(problems))
   }
 
   .main-main {
-    flex: 0 0 700px;
+    flex: 0 0 500px;
     margin-right: 0;
     margin-left: 0;
     padding: 50px 66px;
-    min-height: 500px;
+    min-height: 300px;
   }
 
   .main-right {
-    flex: 0 0 300px;
+    flex: 0 0 150px;
     margin-left: 16px;
     margin-right: 10px;
     height: 500px;
@@ -182,6 +178,7 @@ watch(problems, () => console.log(problems))
   .el-row {
     margin-bottom: 20px;
   }
+
   .problem-item {
     width: 100%;
   }
