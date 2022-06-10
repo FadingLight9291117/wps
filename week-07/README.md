@@ -1,24 +1,8 @@
-# week-07
-
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+思路:
+1.路由组件拆分和路由配置
+    一级路由:初始页面整体为home路由组件,detail也为一级路由组件
+    二级路由:post和new为home的二级路由组件
+    对路由进行配置
+2.组件拆分:把article和new分别作为post和new路由组件的子组件
+3.完成静态页面渲染
+4.在对应的一级路由组件中，渲染之前发送请求获取到数据，然后进行动态渲染或传递给子组件
