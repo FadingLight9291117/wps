@@ -1,6 +1,5 @@
 <template>
-  <div class="main">
-    <el-card>
+  <div class="main" tabindex="0">
       <el-row>
         <el-form-item :label="mId">
           <el-input class="title" v-model="mData.title" placeholder="请输入问题">
@@ -14,10 +13,9 @@
           </el-icon>
         </div>
       </el-row>
-      <el-row>
+      <el-row class="hidden">
         <el-button type="danger" @click="deleteProblem">delete</el-button>
       </el-row>
-    </el-card>
   </div>
 </template>
 
@@ -48,7 +46,20 @@ function deleteProblem() {
 <style lang="less" scoped>
 .main {
   text-align: left;
+  padding: 20px 24px;
+  width: 100%;
 
+  .hidden {
+    display: none;
+  }
+
+  &:focus-within {
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
+
+    .hidden {
+      display: block;
+    }
+  }
 
   .el-row {
     margin-bottom: 10px;

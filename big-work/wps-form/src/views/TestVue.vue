@@ -1,32 +1,26 @@
 <template>
-  <component :is="type[setType]"/>
-  <div>
-    <button @click="changeType">test</button>
+  <div tabindex="0" class="item">
+    <input class="focus" />
   </div>
 </template>
 
-<script setup>
-import TestComponent1 from "@/views/TestComponents/TestComponent1";
-import {ref} from "vue";
-
-const type = {
-  "input": TestComponent1,
-  "single": "input",
-};
-
-let setType = ref("input")
-let i = 0
-
-function changeType() {
-  if (i >= Object.keys(type).length) {
-    i = 0
-  }
-  setType.value = Object.keys(type)[i++]
-}
-
+<script lang="ts" setup>
 
 </script>
+<style lang="less" scoped>
+.item {
+  display: inline-block;
+  margin: 20px;
+  padding: 20px 24px;
 
-<style scoped>
+  height: 200px;
+  width: 200px;
 
+  background-color: white;
+
+  &:focus-within {
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
+  }
+
+}
 </style>

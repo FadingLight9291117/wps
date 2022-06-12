@@ -1,6 +1,5 @@
 <template>
-  <div class="main">
-    <el-card>
+  <div class="main" tabindex="0">
       <el-row>
         <el-form-item :label="mId">
           <el-input class="title" v-model="mData.title" placeholder="请输入问题">
@@ -12,23 +11,22 @@
           <span> 年&nbsp;月&nbsp;日</span>
         </div>
       </el-row>
-      <el-row>
+      <el-row class="hidden">
         <span>日期格式</span>
         <el-select size="small">
-          <el-option label="1" value="1" />
-          <el-option label="1" value="1" />
+          <el-option label="1" value="1"/>
+          <el-option label="1" value="1"/>
         </el-select>
       </el-row>
-      <el-row>
+      <el-row class="hidden">
         <el-button type="danger" @click="deleteProblem">delete</el-button>
       </el-row>
-    </el-card>
   </div>
 </template>
 <script lang="ts" setup>
-import { defineProps, reactive } from "vue";
-import { useStore } from "vuex";
-import { IFormProblemData } from "@/types";
+import {defineProps, reactive} from "vue";
+import {useStore} from "vuex";
+import {IFormProblemData} from "@/types";
 
 const store = useStore()
 
@@ -50,6 +48,22 @@ function deleteProblem() {
 
 <style lang="less" scoped>
 .main {
+  text-align: left;
+  padding: 20px 24px;
+  width: 100%;
+
+  .hidden {
+    display: none;
+  }
+
+  &:focus-within {
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
+
+    .hidden {
+      display: block;
+    }
+  }
+
   .el-row {
     margin-bottom: 10px;
   }

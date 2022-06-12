@@ -41,6 +41,12 @@ vuex 的 state 的子对象可以被直接修改?
 
 问题在于 vuex 的 state 是可以被直接修改的，但是不建议。因为 vuex 能够记录每一次 state 的变化记录，保存状态快照，实现时间漫游／回滚之类的操作。
 
+### 2022.6.11
+
+新建 form 的小问题组件，点击后换样式，然后点击其他地方恢复样式，这个需求，可以使用`<button>`的伪类`:fouce-within`实现
+
+`:fouce`和`:force-within`
+
 ## 记录
 
 | date      | content                                       |
