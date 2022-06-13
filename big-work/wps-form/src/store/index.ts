@@ -1,5 +1,5 @@
-import {createStore} from "vuex";
-import {IFormProblemData} from "@/types";
+import { createStore } from "vuex";
+import { IFormProblemData } from "@/types";
 
 
 export default createStore({
@@ -8,22 +8,23 @@ export default createStore({
             title: "",
             subTitle: "",
             problems: [
-                {id: Date.now().toString(), type: "input", title: ""},
+                { id: Date.now().toString(), type: "input", title: "" },
             ]
         },
         addBtnList: [
-            {id: 1, name: "填空题", type: "input"},
-            {id: 2, name: "单选题", type: "singleSelect"},
-            {id: 3, name: "多选题", type: "multiSelect"},
-            {id: 4, name: "下拉选择", type: "pullSelect"},
-            {id: 5, name: "日期题", type: "date"},
-            {id: 6, name: "时间题", type: "time"},
-            {id: 7, name: "分数题", type: "score"},
+            { id: 1, name: "填空题", type: "input" },
+            { id: 2, name: "单选题", type: "singleSelect" },
+            { id: 3, name: "多选题", type: "multiSelect" },
+            { id: 4, name: "下拉选择", type: "pullSelect" },
+            { id: 5, name: "日期题", type: "date" },
+            { id: 6, name: "时间题", type: "time" },
+            { id: 7, name: "分数题", type: "score" },
         ],
         tmplBtnList: [
-            {id: 1, name: "姓名"},
-            {id: 2, name: "年龄"},
+            { id: 1, name: "姓名" },
+            { id: 2, name: "年龄" },
         ],
+        // todo: 收藏的题目
     },
     getters: {
         getNewForm: (state) => state.newForm,
@@ -46,6 +47,8 @@ export default createStore({
             state.newForm.problems.splice(problemIdx, 1)
         }
     },
-    actions: {},
+    actions: {
+        // todo: 收藏的题目
+    },
     modules: {},
 });

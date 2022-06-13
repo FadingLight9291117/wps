@@ -1,7 +1,13 @@
 import {IFormData} from "@/types"
 import {FormData2BackendFormData} from "@/types";
 
-export async function submitNewForm(newForm: IFormData) {
+enum FormState {
+    FINISH,
+    DELETE,
+    CAOGAO,
+}
+
+export async function submitNewForm(newForm: IFormData, state?: FormState) {
     const body = FormData2BackendFormData(newForm)
     console.log(body)
     const resp = await fetch("/api/form/create", {
@@ -14,3 +20,4 @@ export async function submitNewForm(newForm: IFormData) {
     return await resp.json()
 }
 
+// todo: 获取后端收藏题目列表
