@@ -47,10 +47,40 @@ vuex 的 state 的子对象可以被直接修改?
 
 `:fouce`和`:force-within`
 
+### 2022.6.12
+
+1. js lambda表达式没有this指针
+
+2. js 读取html选择的文件，使用`FileReader`对象
+
+```js
+const elem = document.getElementById("id")
+const files = elem.files
+let file = files[0]
+const reader = new FileReader()
+reader.readAsBinaryString(file)
+reader.onload = function (e) {
+  const content = reader.result
+  console.log(content)
+}
+```
+
+### 2022.6.13
+
+1. 小技巧
+
+类似kotlin中的 `?:`
+
+```js
+const a = { a: 1 }
+let b = a.b || 2
+```
+
 ## 记录
 
-| date      | content                                       |
-| :-------- | :-------------------------------------------- |
-| 2022.6.8  | finish singleSelect component and multiSelect |
-| 2022.6.9  | finsh all small component                     |
-| 2022.6.10 | 完成新建表单页面的主要功能                    |
+| date      | content                                                |
+| :-------- | :----------------------------------------------------- |
+| 2022.6.8  | finish singleSelect component and multiSelect          |
+| 2022.6.9  | finsh all small component                              |
+| 2022.6.10 | 完成新建表单页面的主要功能                             |
+| 2022.6.11 | 封装表单小组件为统一的组件; 分拆新建表单页面为三个页面 |

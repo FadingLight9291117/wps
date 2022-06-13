@@ -1,7 +1,7 @@
 <template>
-    <div :class="btnClass">
+    <button :class="btnClass">
         <slot></slot>
-    </div>
+    </button>
 </template>
 <script lang="ts" >
 import { defineComponent } from "vue";
@@ -37,6 +37,7 @@ export default defineComponent({
     color: #606266;
     margin-right: 10px;
     margin-bottom: 15px;
+    background-color: white;
 }
 
 .btn-default:hover {
@@ -47,6 +48,11 @@ export default defineComponent({
 
 .btn-default:active {
     border-color: #409eff;
+}
+
+.btn-default:focus {
+    background-color: #ecf5ff;
+    color: #409eff;
 }
 
 .btn-primary {
