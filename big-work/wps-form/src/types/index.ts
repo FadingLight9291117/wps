@@ -14,14 +14,15 @@ export interface IFormProblemData {
 }
 
 // 后端
-interface IBackendFormData {
+export interface IBackendFormData {
   id?: string;
+  status: number;
   title: string;
   subTitle: string;
   problems: Array<IBackendFormProblem>;
 }
 
-interface IBackendFormProblem {
+export interface IBackendFormProblem {
   type: string;
   title: string;
   setting?: { options?: Array<IBackendOption> };
@@ -33,30 +34,10 @@ interface IBackendOption {
   status: string;
 }
 
-// 前后端通讯数据格式转换
-function problem2BackendProblem(problem: IFormProblemData) {
-  const backendProblem: IBackendFormProblem = {
-    type: problem.type,
-    title: problem.title,
-    setting: {
-      options: problem.options?.map((opt, i) => {
-        return {
-          id: i.toString(),
-          title: opt,
-          status: "2",
-        };
-      }),
-    },
-  };
-  return backendProblem;
-}
-
-export function FormData2BackendFormData(formData: IFormData) {
-  const backendFormData: IBackendFormData = {
-    id: formData.id,
-    title: formData.title,
-    subTitle: formData.subTitle,
-    problems: formData.problems.map(problem2BackendProblem),
-  };
-  return backendFormData;
+// 表单状态
+export enum EFormStatus {
+  delete = 1,
+  normal,
+  ing,
+  end,
 }

@@ -2,10 +2,10 @@
   <div class="right-main">
     <el-row class="btn-group1" justify="space-between">
       <el-col :span="10">
-        <el-button>预览</el-button>
+        <el-button @click="preview">预览</el-button>
       </el-col>
       <el-col :span="10">
-        <el-button>保存草稿</el-button>
+        <el-button @click="submit(EFormStatus.ing)">保存草稿</el-button>
       </el-col>
     </el-row>
     <el-row>
@@ -17,11 +17,19 @@
 <script lang="ts" setup>
 import { useStore } from "vuex";
 import { submitNewForm } from "@/api";
+import { EFormStatus } from "@/types";
 
 const store = useStore()
 
-function submit() {
-  submitNewForm(store.getters.getNewForm)
+function submit(state?: EFormStatus) {
+  console.log(store.getters.getNewForm)
+  console.log(state)
+  submitNewForm(store.getters.getNewForm, state)
+}
+
+// 预览
+function preview() {
+  console.log("preview")
 }
 </script>
 

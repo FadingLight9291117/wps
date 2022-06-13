@@ -76,6 +76,10 @@ const a = { a: 1 }
 let b = a.b || 2
 ```
 
+
+### 2022.6.14
+1. vue style scoped 是防止样式向下传递
+
 ## 记录
 
 | date      | content                                                |
