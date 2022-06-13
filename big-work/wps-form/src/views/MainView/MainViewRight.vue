@@ -15,8 +15,8 @@
 </template>
 
 <script lang="ts" setup>
-import {useStore} from "vuex";
-import {submitNewForm} from "@/api";
+import { useStore } from "vuex";
+import { submitNewForm } from "@/api";
 
 const store = useStore()
 

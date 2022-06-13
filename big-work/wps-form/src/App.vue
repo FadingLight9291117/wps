@@ -5,7 +5,7 @@
     <router-link to="/test">test</router-link>
   </nav>
   <div style="padding-top:100px">
-    <router-view/>
+    <router-view />
   </div>
 </template>
 

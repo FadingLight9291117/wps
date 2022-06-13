@@ -14,8 +14,8 @@
     <el-row class="hidden">
       <span>时间格式</span>
       <el-select size="small">
-        <el-option label="1" value="1"/>
-        <el-option label="1" value="1"/>
+        <el-option label="1" value="1" />
+        <el-option label="1" value="1" />
       </el-select>
     </el-row>
     <el-row class="hidden">
@@ -24,9 +24,9 @@
   </div>
 </template>
 <script lang="ts" setup>
-import {defineProps, reactive} from "vue";
-import {useStore} from "vuex";
-import {IFormProblemData} from "@/types";
+import { defineProps, reactive } from "vue";
+import { useStore } from "vuex";
+import { IFormProblemData } from "@/types";
 
 const store = useStore()
 

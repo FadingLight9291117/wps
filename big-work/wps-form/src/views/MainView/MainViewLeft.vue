@@ -17,9 +17,9 @@
 </template>
 
 <script lang="ts" setup>
-import {useStore} from "vuex";
-import {computed} from "vue";
-import {IFormProblemData} from "@/types";
+import { useStore } from "vuex";
+import { computed } from "vue";
+import { IFormProblemData } from "@/types";
 
 const store = useStore()
 const addBtnList = computed(() => store.getters.getAddBtnList)

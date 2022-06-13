@@ -2,13 +2,13 @@
   <div class="page">
     <div class="main-container">
       <div class="container-left">
-        <MainViewLeft class="bg"/>
+        <MainViewLeft class="bg" />
       </div>
       <div class="container-main">
-        <MainViewMain class="bg"/>
+        <MainViewMain class="bg" />
       </div>
       <div class="container-right">
-        <MainViewRight class="bg"/>
+        <MainViewRight class="bg" />
       </div>
     </div>
   </div>

@@ -1,32 +1,32 @@
 <template>
   <div class="main" tabindex="0">
-      <el-row>
-        <el-form-item :label="mId">
-          <el-input class="title" v-model="mData.title" placeholder="请输入问题">
-          </el-input>
-        </el-form-item>
-      </el-row>
-      <el-row>
-        <div class="time">
-          <span> 年&nbsp;月&nbsp;日</span>
-        </div>
-      </el-row>
-      <el-row class="hidden">
-        <span>日期格式</span>
-        <el-select size="small">
-          <el-option label="1" value="1"/>
-          <el-option label="1" value="1"/>
-        </el-select>
-      </el-row>
-      <el-row class="hidden">
-        <el-button type="danger" @click="deleteProblem">delete</el-button>
-      </el-row>
+    <el-row>
+      <el-form-item :label="mId">
+        <el-input class="title" v-model="mData.title" placeholder="请输入问题">
+        </el-input>
+      </el-form-item>
+    </el-row>
+    <el-row>
+      <div class="time">
+        <span> 年&nbsp;月&nbsp;日</span>
+      </div>
+    </el-row>
+    <el-row class="hidden">
+      <span>日期格式</span>
+      <el-select size="small">
+        <el-option label="1" value="1" />
+        <el-option label="1" value="1" />
+      </el-select>
+    </el-row>
+    <el-row class="hidden">
+      <el-button type="danger" @click="deleteProblem">delete</el-button>
+    </el-row>
   </div>
 </template>
 <script lang="ts" setup>
-import {defineProps, reactive} from "vue";
-import {useStore} from "vuex";
-import {IFormProblemData} from "@/types";
+import { defineProps, reactive } from "vue";
+import { useStore } from "vuex";
+import { IFormProblemData } from "@/types";
 
 const store = useStore()
 

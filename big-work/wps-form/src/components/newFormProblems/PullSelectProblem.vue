@@ -8,10 +8,10 @@
     </el-row>
     <el-row class="option" v-for="(opt, idx) in mData.options" :key="idx">
       <span>{{ idx + 1 }}.</span>
-      <el-input v-model="mData.options[idx]" :placeholder="`选项${idx+1}`"></el-input>
+      <el-input v-model="mData.options[idx]" :placeholder="`选项${idx + 1}`"></el-input>
       <a class="delete hidden" @click="deleteItem(idx)">
         <el-icon>
-          <Close/>
+          <Close />
         </el-icon>
       </a>
     </el-row>
@@ -25,11 +25,11 @@
 </template>
 
 <script lang="ts" setup>
-import {Close} from "@element-plus/icons";
-import {reactive} from "vue";
-import {defineProps} from "vue";
-import {IFormProblemData} from "@/types";
-import {useStore} from "vuex";
+import { Close } from "@element-plus/icons";
+import { reactive } from "vue";
+import { defineProps } from "vue";
+import { IFormProblemData } from "@/types";
+import { useStore } from "vuex";
 
 const store = useStore()
 

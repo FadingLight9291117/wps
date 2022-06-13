@@ -18,9 +18,9 @@
 </template>
 
 <script lang="ts" setup>
-import {defineProps, reactive} from "vue";
-import {useStore} from "vuex";
-import {IFormProblemData} from "@/types";
+import { defineProps, reactive } from "vue";
+import { useStore } from "vuex";
+import { IFormProblemData } from "@/types";
 
 const store = useStore()
 

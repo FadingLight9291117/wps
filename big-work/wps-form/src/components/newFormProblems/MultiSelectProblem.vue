@@ -7,13 +7,13 @@
     </el-row>
 
     <el-row v-for="(option, idx) in mData.options" :key="idx">
-      <el-checkbox :label="idx+1" size="small">
-        <el-input v-model="mData.options[idx]" :placeholder="`选项${idx+1}`"></el-input>
+      <el-checkbox :label="idx + 1" size="small">
+        <el-input v-model="mData.options[idx]" :placeholder="`选项${idx + 1}`"></el-input>
       </el-checkbox>
 
       <a class="delete hidden" @click="deleteItem(idx)">
         <el-icon>
-          <Close/>
+          <Close />
         </el-icon>
       </a>
 
@@ -28,11 +28,11 @@
 </template>
 
 <script lang="ts" setup>
-import {Close} from "@element-plus/icons";
-import {reactive} from "vue";
-import {defineProps} from "vue";
-import {IFormProblemData} from "@/types";
-import {useStore} from "vuex";
+import { Close } from "@element-plus/icons";
+import { reactive } from "vue";
+import { defineProps } from "vue";
+import { IFormProblemData } from "@/types";
+import { useStore } from "vuex";
 
 const store = useStore()
 
@@ -71,7 +71,6 @@ function deleteProblem() {
 
 </script>
 <style scoped lang="less">
-
 .main {
   text-align: left;
   padding: 20px 24px;
@@ -107,5 +106,4 @@ function deleteProblem() {
     margin-right: 0;
   }
 }
-
 </style>

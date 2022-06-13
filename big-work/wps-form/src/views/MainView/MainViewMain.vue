@@ -1,11 +1,11 @@
 <template>
   <div class="main-main">
     <el-row class="main-row">
-      <input class="title" type="text" v-model="title" placeholder="请输入表单标题" maxlength="30"/>
+      <input class="title" type="text" v-model="title" placeholder="请输入表单标题" maxlength="30" />
     </el-row>
     <el-row class="main-row">
       <div class="describe-warp">
-        <textarea class="describe" type="text" v-model="subTitle" placeholder="点击设置描述"/>
+        <textarea class="describe" type="text" v-model="subTitle" placeholder="点击设置描述" />
       </div>
     </el-row>
     <el-row class="problems">
@@ -17,22 +17,21 @@
 </template>
 
 <script lang="ts" setup>
-import NewFormProblem from "@/components/NewFormProblem.vue"
-import {useStore} from "vuex";
-import {computed} from "vue";
-import {IFormProblemData} from "@/types";
+import NewFormProblem from "@/components/NewFormProblem.vue";
+import { useStore } from "vuex";
+import { computed } from "vue";
+import { IFormProblemData } from "@/types";
 
-const store = useStore()
+const store = useStore();
 const title = computed({
   get: () => store.getters.getNewForm.title,
-  set: val => store.commit("setTitle", {title: val})
-})
+  set: (val) => store.commit("setTitle", { title: val }),
+});
 const subTitle = computed({
   get: () => store.getters.getNewForm.subTitle,
-  set: val => store.commit("setTitle", {subTitle: val})
-})
-const problems = store.getters.getNewForm.problems as Array<IFormProblemData>
-
+  set: (val) => store.commit("setTitle", { subTitle: val }),
+});
+const problems = store.getters.getNewForm.problems as Array<IFormProblemData>;
 </script>
 
 <style scoped lang="less">
@@ -59,7 +58,7 @@ const problems = store.getters.getNewForm.problems as Array<IFormProblemData>
   width: 100%;
 
   &:hover {
-    border-bottom: 1px solid rgba(25, 55, 88, .1);
+    border-bottom: 1px solid rgba(25, 55, 88, 0.1);
   }
 
   &:focus-within {
@@ -79,13 +78,10 @@ const problems = store.getters.getNewForm.problems as Array<IFormProblemData>
   }
 }
 
-
 .problems {
   .el-row {
     margin-bottom: 20px;
-    width: 100%
+    width: 100%;
   }
-
 }
-
 </style>
