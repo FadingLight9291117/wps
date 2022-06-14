@@ -2,14 +2,14 @@
   <div class="left-main">
     <div class="title-small">添加题目</div>
     <div class="left-content">
-      <el-button plain v-for="item in addBtnList" :key="item.id" @click="addProblem(item.type)">
+      <el-button plain v-for="item in addBtnList" :key="item.id" @click="addProblem({ type: item.type })">
         {{ item.name }}
       </el-button>
     </div>
     <div class="title-small">题目模板</div>
     <div class="left-content">
-      <el-button plain v-for="item in tmplBtnList" :key="item.id">
-        {{ item.name }}
+      <el-button plain v-for="(item, idx) in tmplBtnList" :key="idx" @click="addProblem(item)">
+        {{ item.title }}
       </el-button>
     </div>
     <div class="title-small">我的常用题</div>
@@ -22,18 +22,22 @@ import { computed } from "vue";
 import { IFormProblemData } from "@/types";
 
 const store = useStore()
+store.dispatch("setStarProblemList")
 const addBtnList = computed(() => store.getters.getAddBtnList)
 const tmplBtnList = computed(() => store.getters.getTmplBtnList)
 
 
-function addProblem(type: string) {
-  const problem: IFormProblemData = {
+function addProblem(problem: { type: string, title?: string, options?: Array<string> }) {
+  const _problem: IFormProblemData = {
     id: Date.now().toString(),
-    type: type,
-    title: "",
+    type: problem.type,
+    title: problem.title || "",
+    options: problem.options,
   }
-  store.commit("addProblem", problem)
+  store.commit("addProblem", _problem)
 }
+
+
 </script>
 
 <style scoped lang="less">

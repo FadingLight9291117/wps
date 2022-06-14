@@ -20,6 +20,7 @@ import PullSelect from "@/components/newFormProblems/PullSelectProblem.vue";
 import { IFormProblemData } from "@/types";
 import { defineProps } from "vue";
 import { useStore } from "vuex";
+import { starProblem } from "@/api";
 
 const store = useStore()
 const type2Component = {
@@ -45,7 +46,8 @@ function deleteProblem() {
 }
 function starTheProblem() {
   console.log("star it ")
-  console.log(props.data)
+  starProblem(props.data)
+
 }
 </script>
 <style lang="less" >

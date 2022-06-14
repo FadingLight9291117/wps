@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import { IFormProblemData } from "@/types";
+import { getStarProblemList } from "@/api";
 
 export default createStore({
   state: {
@@ -17,11 +18,11 @@ export default createStore({
       { id: 6, name: "时间题", type: "time" },
       { id: 7, name: "分数题", type: "score" },
     ],
-    tmplBtnList: [
-      { id: 1, name: "姓名" },
-      { id: 2, name: "年龄" },
-    ],
     // todo: 收藏的题目
+    tmplBtnList: [
+      { id: 1, type: "input", title: "姓名" },
+      { id: 2, type: "input", title: "年龄" },
+    ],
   },
   getters: {
     getNewForm: (state) => state.newForm,
@@ -47,9 +48,15 @@ export default createStore({
       );
       state.newForm.problems.splice(problemIdx, 1);
     },
+    // 收藏题目
+    setStarProblemList: (state, problems) => {
+      // const _problems = problems.map(item)
+      state.tmplBtnList.push(...problems)
+    },
   },
   actions: {
     // todo: 收藏的题目
+    setStarProblemList: async (context) => context.commit("setStarProblemList", await getStarProblemList())
   },
   modules: {},
 });
