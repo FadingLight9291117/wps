@@ -62,7 +62,6 @@ export async function submitNewForm(newForm: IFormData, state?: EFormStatus) {
 // star problem
 export async function starProblem(problemData: IFormProblemData) {
   const backendProblemData = problem2BackendProblem(problemData)
-  console.log(backendProblemData)
   const resp = await fetch("/api/problem/star", {
     method: "POST",
     headers: {
@@ -79,6 +78,5 @@ export async function getStarProblemList(): Promise<IFormProblemData[]> {
   })
   const backendStarProblemsList: Array<{ id?: string, status: number, problem: IBackendFormProblem }> = (await resp.json()).data.items
   const problems = backendStarProblemsList.map(backendProblem2problem)
-  console.log(problems)
   return problems
 }

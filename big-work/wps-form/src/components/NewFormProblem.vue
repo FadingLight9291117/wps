@@ -45,9 +45,8 @@ function deleteProblem() {
   store.commit("deleteProblem", props.data)
 }
 function starTheProblem() {
-  console.log("star it ")
   starProblem(props.data)
-
+  store.commit("addStarProblemList", [props.data])
 }
 </script>
 <style lang="less" >

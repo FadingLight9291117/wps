@@ -49,14 +49,13 @@ export default createStore({
       state.newForm.problems.splice(problemIdx, 1);
     },
     // 收藏题目
-    setStarProblemList: (state, problems) => {
-      // const _problems = problems.map(item)
+    addStarProblemList: (state, problems) => {
       state.tmplBtnList.push(...problems)
     },
   },
   actions: {
-    // todo: 收藏的题目
-    setStarProblemList: async (context) => context.commit("setStarProblemList", await getStarProblemList())
+    // 收藏的题目
+    setStarProblemList: async (context) => context.commit("addStarProblemList", await getStarProblemList())
   },
   modules: {},
 });
