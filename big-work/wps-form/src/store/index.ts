@@ -1,6 +1,6 @@
 import { createStore } from "vuex";
 import { IFormProblemData } from "@/types";
-import { getStarProblemList } from "@/api";
+import { getStarProblemList, cancleStar } from "@/api";
 
 export default createStore({
   state: {
@@ -18,16 +18,19 @@ export default createStore({
       { id: 6, name: "时间题", type: "time" },
       { id: 7, name: "分数题", type: "score" },
     ],
-    // todo: 收藏的题目
+    // 收藏的题目
     tmplBtnList: [
       { id: 1, type: "input", title: "姓名" },
       { id: 2, type: "input", title: "年龄" },
     ],
+    // 常用题
+    starBtnList: [] as Array<{ id?: string, type: string, title: string, options?: Array<string> }>,
   },
   getters: {
     getNewForm: (state) => state.newForm,
     getAddBtnList: (state) => state.addBtnList,
     getTmplBtnList: (state) => state.tmplBtnList,
+    getStarBtnList: (state) => state.starBtnList,
   },
   mutations: {
     setNewForm: (state, form) => (state.newForm = form),
@@ -49,13 +52,16 @@ export default createStore({
       state.newForm.problems.splice(problemIdx, 1);
     },
     // 收藏题目
-    addStarProblemList: (state, problems) => {
-      state.tmplBtnList.push(...problems)
-    },
+    addStarProblemList: (state, problems) => state.starBtnList.push(...problems),
+    cancelStarProblem: (state, id) => state.starBtnList = state.starBtnList.filter(item => item.id != id),
   },
   actions: {
     // 收藏的题目
-    setStarProblemList: async (context) => context.commit("addStarProblemList", await getStarProblemList())
+    setStarProblemList: async (context) => context.state.starBtnList = await getStarProblemList(),
+    cancelStarProblem: async (context, id) => {
+      context.commit("cancelStarProblem", id)
+      return await cancleStar(id)
+    },
   },
   modules: {},
 });

@@ -60,7 +60,7 @@ router.post(
 
 router.post(
   "/cancelStar",
-  checkToken(userKit.checkToken),
+  // checkToken(userKit.checkToken),
   checkBody(checkCancelProblemBody),
   async (ctx: Context) => {
     try {

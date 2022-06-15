@@ -26,6 +26,7 @@ function problem2BackendProblem(problem: IFormProblemData): IBackendFormProblem 
 
 function backendProblem2problem(backendProblem: { id?: string, status: number, problem: IBackendFormProblem }): IFormProblemData {
   const problem = {
+    id: backendProblem.id,
     type: backendProblem.problem.type,
     title: backendProblem.problem.title,
     options: backendProblem.problem.setting?.options?.map(item => item.title),
@@ -71,7 +72,7 @@ export async function starProblem(problemData: IFormProblemData) {
   })
   return await resp.json()
 }
-// todo: 获取后端收藏题目列表
+// 获取后端收藏题目列表
 export async function getStarProblemList(): Promise<IFormProblemData[]> {
   const resp = await fetch("/api/problem/listStar", {
     method: "POST",
@@ -79,4 +80,15 @@ export async function getStarProblemList(): Promise<IFormProblemData[]> {
   const backendStarProblemsList: Array<{ id?: string, status: number, problem: IBackendFormProblem }> = (await resp.json()).data.items
   const problems = backendStarProblemsList.map(backendProblem2problem)
   return problems
+}
+// 取消收藏
+export async function cancleStar(id: string) {
+  const resp = await fetch("/api/problem/cancelStar", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id: id })
+  })
+  return await resp.json()
 }
