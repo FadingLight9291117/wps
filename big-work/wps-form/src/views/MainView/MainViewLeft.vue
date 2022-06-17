@@ -50,6 +50,7 @@ function addProblem(problem: { type: string, title?: string, options?: Array<str
     id: Date.now().toString(),
     type: problem.type,
     title: problem.title || "",
+    required: false,
     options: problem.options,
   }
   store.commit("addProblem", _problem)

@@ -7,7 +7,7 @@ export default createStore({
     newForm: {
       title: "",
       subTitle: "",
-      problems: [{ id: Date.now().toString(), type: "input", title: "" }],
+      problems: [{ id: Date.now().toString(), type: "input", required: false, title: "" }],
     },
     addBtnList: [
       { id: 1, name: "填空题", type: "input" },
@@ -20,11 +20,11 @@ export default createStore({
     ],
     // 收藏的题目
     tmplBtnList: [
-      { id: 1, type: "input", title: "姓名" },
-      { id: 2, type: "input", title: "年龄" },
+      { id: 1, type: "input", title: "姓名", required: false },
+      { id: 2, type: "input", title: "年龄", required: false },
     ],
     // 常用题
-    starBtnList: [] as Array<{ id?: string, type: string, title: string, options?: Array<string> }>,
+    starBtnList: [] as Array<{ id?: string, type: string, title: string, required?: boolean, options?: Array<string> }>,
   },
   getters: {
     getNewForm: (state) => state.newForm,

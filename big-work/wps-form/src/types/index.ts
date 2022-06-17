@@ -10,6 +10,7 @@ export interface IFormProblemData {
   id?: string;
   type: string;
   title: string;
+  required: boolean;
   options?: Array<string>;
 }
 
@@ -25,6 +26,7 @@ export interface IBackendFormData {
 export interface IBackendFormProblem {
   type: string;
   title: string;
+  required: boolean;
   setting?: { options?: Array<IBackendOption> };
 }
 

@@ -11,6 +11,7 @@ function problem2BackendProblem(problem: IFormProblemData): IBackendFormProblem 
   const backendProblem: IBackendFormProblem = {
     type: problem.type,
     title: problem.title,
+    required: problem.required,
     setting: {
       options: problem.options?.map((opt, i) => {
         return {
@@ -29,6 +30,7 @@ function backendProblem2problem(backendProblem: { id?: string, status: number, p
     id: backendProblem.id,
     type: backendProblem.problem.type,
     title: backendProblem.problem.title,
+    required: backendProblem.problem.required,
     options: backendProblem.problem.setting?.options?.map(item => item.title),
   }
   return problem

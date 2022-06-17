@@ -1,11 +1,25 @@
 <template>
-  <div tabindex="0" class="item">
+  <div @click="clickit" tabindex="0" class="item">
     <input class="focus" />
   </div>
+  <el-button @click="clickBtn">click it</el-button>
+  <div v-for="i in list" :key="i">{{ i }}</div>
 </template>
 
 <script lang="ts" setup>
+import { reactive, ref } from 'vue';
 
+const list = ref([
+  { i: 1 }, { i: 2 }, { i: 3 }
+])
+function clickit() {
+  alert("test")
+}
+let i = 0
+function clickBtn() {
+  i++
+  list.value.splice(0, 0, { i: i })
+}
 </script>
 <style lang="less" scoped>
 .item {

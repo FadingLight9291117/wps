@@ -8,7 +8,7 @@
         <textarea class="describe" type="text" v-model="subTitle" placeholder="点击设置描述" />
       </div>
     </el-row>
-    <el-row class="problems">
+    <el-row class="problems"  @click.prevent="clickProblem">
       <el-row v-for="(item, idx) in problems" :key="idx">
         <NewFormProblem :type="item.type" :data="item" :id="idx"></NewFormProblem>
       </el-row>
@@ -32,6 +32,10 @@ const subTitle = computed({
   set: (val) => store.commit("setTitle", { subTitle: val }),
 });
 const problems = store.getters.getNewForm.problems as Array<IFormProblemData>;
+
+function clickProblem(idx: number) {
+  console.log('test')
+}
 </script>
 
 <style scoped lang="less">
